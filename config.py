@@ -7,4 +7,5 @@ AWS_CREDENTIALS = {
 }
 
 BOOTSTRAP_SERVERS = ['localhost:9092']
-# BOOTSTRAP_SERVERS = ['localhost:9092', 'localhost:9093', 'localhost:9094']
+# BOOTSTRAP_SERVERS = ['<ip1>:9092', '<ip2>:9092', '<ip3>:9092']
+LOG_PREFIX = "meetup_reporter-"

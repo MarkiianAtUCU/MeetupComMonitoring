@@ -14,6 +14,4 @@ kafka_producer = KafkaProducer(bootstrap_servers=config.BOOTSTRAP_SERVERS,
                                value_serializer=lambda v: json.dumps(v).encode('utf-8'))
 
 for i in response.iter_lines():
-    # print("")
-    # print(json.loads(i))
     kafka_producer.send("raw-meetups", value=json.loads(i))
