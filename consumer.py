@@ -1,14 +1,7 @@
 import json
-import requests
 from kafka import KafkaConsumer, TopicPartition
-
 import config
-
-response = requests.get(config.HTTP_STREAM_URL, stream=True)
-
-if response.status_code != 200:
-    print("Error occured, response returned non OK")
-    exit(1)
+from utils.S3Adapter import S3Adapter
 
 
 def get_all_messages_from_topic(topic):
@@ -27,6 +20,7 @@ def get_all_messages_from_topic(topic):
     return result
 
 
-# print(get_all_messages_from_topic("US-cities-every-minute2"))
-# print(get_all_messages_from_topic("Programming-meetups"))
-# print(len(get_all_messages_from_topic("US-meetups")))
+s3Adapter = S3Adapter(config.AWS_CREDENTIALS, config.S3_OUTPUT_BUCKET)
+
+for current_topic in config.TOPIC_LIST:
+    s3Adapter.upload_file(f"meetup_com/{current_topic}.json", get_all_messages_from_topic(current_topic))
